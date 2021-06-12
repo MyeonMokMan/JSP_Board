@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.Vector;
 
 public class BoardDAO {
 	
@@ -80,6 +81,51 @@ public class BoardDAO {
 			
 		}	
 		
+	}
+	
+	public Vector<BoardBean> getAllBoard() {
+		
+		Vector<BoardBean> vec = new Vector();
+		
+		try {
+			
+			getCon();
+			
+			String sql = "select * from board order by ref desc, re_step asc";
+			
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				//BoardBean 클래스를 이용해서 데이터를 패키징
+				BoardBean bBean = new BoardBean();
+				
+				bBean.setNum(rs.getInt(1));
+				bBean.setWriter(rs.getString(2));
+				bBean.setEmail(rs.getString(3));
+				bBean.setSubject(rs.getString(4));
+				bBean.setPassword(rs.getString(5));
+				bBean.setReg_date(rs.getDate(6).toString());
+				bBean.setRef(rs.getInt(7));
+				bBean.setRe_step(rs.getInt(8));
+				bBean.setRe_level(rs.getInt(9));
+				bBean.setReadcount(rs.getInt(10));
+				bBean.setContent(rs.getString(11));
+				
+				vec.add(bBean);
+				
+				con.close();
+			}
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			
+		}
+		
+		return vec;
 	}
 	
 }
