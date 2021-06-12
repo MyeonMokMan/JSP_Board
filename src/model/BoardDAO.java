@@ -85,7 +85,7 @@ public class BoardDAO {
 	
 	public Vector<BoardBean> getAllBoard() {
 		
-		Vector<BoardBean> vec = new Vector();
+		Vector<BoardBean> vec = new Vector<BoardBean>();
 		
 		try {
 			
@@ -115,9 +115,10 @@ public class BoardDAO {
 				bBean.setContent(rs.getString(11));
 				
 				vec.add(bBean);
-				
-				con.close();
+			
 			}
+			
+			con.close();
 			
 		} catch (Exception e) {
 
