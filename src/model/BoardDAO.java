@@ -8,8 +8,8 @@ import java.util.Vector;
 
 public class BoardDAO {
 	
-	String id="오라클 아이디";
-	String pass="오라클 비밀번호";
+	String id="";
+	String pass="";
 	String url="jdbc:oracle:thin:@localhost:1521:XE";
 	
 	//데이터베이스에 접근할 수 있도록 설정
