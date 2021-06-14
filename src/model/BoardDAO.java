@@ -310,4 +310,27 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void deleteBoard(int num) {
+		
+		try {
+			
+			getCon();
+			
+			String deleteSql = "delete from board where num=?";
+			
+			pstmt = con.prepareStatement(deleteSql);
+			pstmt.setInt(1, num);
+			pstmt.executeUpdate();
+			
+			con.close();
+			
+			
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+	}
 }
