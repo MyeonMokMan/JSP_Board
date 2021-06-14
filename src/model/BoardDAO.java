@@ -176,4 +176,44 @@ public class BoardDAO {
 		
 		return bBean;
 	}
+	
+	//댓글 메소드
+	public void reWriteBoard(BoardBean bBean) {
+		
+		//부모 글 그룹과 글 레벨,스텝을 읽어드림
+		int ref = bBean.getRef();
+		int re_step = bBean.getRe_step();
+		int re_level = bBean.getRe_level();
+		
+		try {
+			
+			getCon();
+			
+			//답글 쿼리
+			String levelSql = "update board set re_level=re_level+1 where ref=? and re_level>?";
+			
+			pstmt=con.prepareStatement(levelSql);
+			pstmt.setInt(1, ref);
+			pstmt.setInt(2, re_level);
+			pstmt.executeUpdate();
+			
+			String sql = "insert into board values(board_seq.NEXTVAL,?,?,?,?,sysdate,?,?,?,0,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, bBean.getWriter());
+			pstmt.setString(2, bBean.getEmail());
+			pstmt.setString(3, bBean.getSubject());
+			pstmt.setString(4, bBean.getPassword());
+			pstmt.setInt(5, ref);
+			pstmt.setInt(6, re_step+1); //답글이기에 부모 글 re_step에 1을 더해줌
+			pstmt.setInt(7, re_level+1);
+			pstmt.setString(8, bBean.getContent());
+			pstmt.executeUpdate();
+			
+			con.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
