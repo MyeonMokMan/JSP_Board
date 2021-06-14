@@ -129,7 +129,7 @@ public class BoardDAO {
 		return vec;
 	}
 	
-	//하나의 게시글,조회수 증가 쿼리를 리턴하는 메소드
+	//BoardInfo의 하나의 게시글,조회수 증가 쿼리를 리턴하는 메소드
 	public BoardBean getOneBoard(int num) {
 		
 		BoardBean bBean = new BoardBean();
@@ -215,5 +215,45 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 		
+	}
+	
+	//BoardUpdate용 하나의 게시글 리턴
+	public BoardBean getOneUpdateBoard(int num) {
+		
+		BoardBean bBean = new BoardBean();
+		
+		try {
+			getCon();
+			
+			String sql = "select * from board where num=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				bBean.setNum(rs.getInt(1));
+				bBean.setWriter(rs.getString(2));
+				bBean.setEmail(rs.getString(3));
+				bBean.setSubject(rs.getString(4));
+				bBean.setPassword(rs.getString(5));
+				bBean.setReg_date(rs.getDate(6).toString());
+				bBean.setRef(rs.getInt(7));
+				bBean.setRe_step(rs.getInt(8));
+				bBean.setRe_level(rs.getInt(9));
+				bBean.setReadcount(rs.getInt(10));
+				bBean.setContent(rs.getString(11));
+				
+			}
+			
+			con.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return bBean;
 	}
 }
