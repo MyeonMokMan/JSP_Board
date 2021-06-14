@@ -256,4 +256,58 @@ public class BoardDAO {
 		
 		return bBean;
 	}
+	
+	//update와 delete에 필요한 비밀번호를 리턴해주는 메소드
+	public String getPass(int num) {
+		
+		String pass="";
+		
+		try {
+			
+			getCon();
+			
+			String passSql = "select password from board where num=?";
+			
+			pstmt = con.prepareStatement(passSql);
+			pstmt.setInt(1, num);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				pass = rs.getString(1);
+				
+			}
+			
+			con.close();
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return pass;
+		
+	}
+	
+	public void updateBoard(BoardBean bBean) {
+		
+		try {
+			
+			getCon();
+			
+			String updateSql = "update board set subject=?, content=? where num=?";
+			
+			pstmt = con.prepareStatement(updateSql);
+			pstmt.setString(1, bBean.getSubject());
+			pstmt.setString(2, bBean.getContent());
+			pstmt.setInt(3, bBean.getNum());
+			
+			pstmt.executeUpdate();
+			
+			con.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
