@@ -21,7 +21,7 @@
 	<table width="600" border="1" bgcolor="beige">
 		<tr height="40">
 			<td width="150" align="center">작성자</td>
-			<td width="450" align="center"><input type="text" name="name" size="60"></td>
+			<td width="450" align="center"><input type="text" name="writer" size="60"></td>
 		</tr>
 		<tr height="40">
 			<td width="150" align="center">제목</td>
