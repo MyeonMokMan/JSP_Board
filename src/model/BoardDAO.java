@@ -333,4 +333,36 @@ public class BoardDAO {
 		}
 		
 	}
+	
+	public int getAllCount() {
+		
+		int count = 0;
+		
+		try {
+			
+			getCon();
+			
+			String countSql = "select count(*) from board";
+			
+			pstmt = con.prepareStatement(countSql);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				//전체 게시글 수
+				count = rs.getInt(1);
+				
+			}
+			
+			con.close();
+					
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		return count;
+	}
 }
