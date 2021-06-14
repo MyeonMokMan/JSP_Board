@@ -34,7 +34,17 @@
 		%>
 		<tr height="40">
 			<td width="50" align="center"><%=i+1%></td>
-			<td width="320" align="center"><a href="BoardInfo.jsp?num=<%=bBean.getNum()%>">
+			<td width="320" align="left"><a href="BoardInfo.jsp?num=<%=bBean.getNum()%>" style="text-decoration:none">
+			<%
+				//들여쓰기
+				if(bBean.getRe_step()>1) {
+				
+					for(int j=0; j<(bBean.getRe_step()-1)*5; j++){
+			%>&nbsp;
+			<%
+					}
+				}
+			%>
 			<%=bBean.getSubject() %></a></td>
 			<td width="100" align="center"><%=bBean.getWriter() %></td>
 			<td width="150" align="center"><%=bBean.getReg_date() %></td>
